@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<schema version="0.3">
+	<table name="btRemoGuestbook">
+		<field name="bID" type="I">
+			<key />
+			<unsigned />
+		</field>
+	</table>
+	<table name="btRemoGuestbookEntries">
+		<field name="entryID" type="I">
+			<key />
+			<autoincrement />
+			<unsigned />
+		</field>
+		<field name="bID" type="I">
+			<unsigned />
+			<default value="0" />
+		</field>
+		<field name="parentEntryID" type="I">
+			<unsigned />
+			<default value="0" />
+		</field>      
+		<field name="message" type="X2"></field>
+		<field name="subject" type="X2"></field>
+		<field name="emailAddress" type="I"></field>
+		<field name="websiteUrl" type="C" size="255"></field>
+		<field name="ipAddress" type="C" size="255"></field>
+		<field name="dateCreated" type="T">
+			<NOTNULL/>
+			<DEFAULT value="0000-00-00 00:00:00"/>
+		</field>
+      <index name="btRemoGuestbookEntries_ix1">
+         <col>parentEntryID</col>
+      </index>       
+	</table>
+</schema>

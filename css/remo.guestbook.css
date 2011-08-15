@@ -1,0 +1,13 @@
+.remo-hierarchical-guestbook-entry {
+   background: #ccc;
+   border: 1px solid black;
+   margin-bottom: 10px;
+   padding: 5px;
+}
+.remo-hierarchical-guestbook-title {
+   font-weight: bold;
+}
+.remo-hierarchical-guestbook-message {
+   width: 99%;
+   height: 100px;
+}
