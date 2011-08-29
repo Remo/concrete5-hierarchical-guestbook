@@ -22,7 +22,8 @@
 		</field>      
 		<field name="message" type="X2"></field>
 		<field name="subject" type="X2"></field>
-		<field name="emailAddress" type="I"></field>
+		<field name="name" type="C" size="255"></field>
+		<field name="emailAddress" type="C" size="255"></field>
 		<field name="websiteUrl" type="C" size="255"></field>
 		<field name="ipAddress" type="C" size="255"></field>
 		<field name="dateCreated" type="T">

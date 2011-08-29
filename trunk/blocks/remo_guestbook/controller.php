@@ -22,7 +22,7 @@ class RemoGuestbookBlockController extends BlockController {
       $db = Loader::db();
       
       $tree = array();
-      $result = $db->Execute("SELECT entryID, message, subject, emailAddress, websiteUrl, dateCreated FROM btRemoGuestbookEntries WHERE bID=? AND parentEntryID=? ORDER BY entryID desc", array($this->bID, $parentID));
+      $result = $db->Execute("SELECT entryID, message, subject, name, emailAddress, websiteUrl, dateCreated FROM btRemoGuestbookEntries WHERE bID=? AND parentEntryID=? ORDER BY entryID desc", array($this->bID, $parentID));
       while ($row = $result->FetchNextObject(false)) {
          $row->level = $currentLevel;
          $tree[] = $row;
@@ -49,8 +49,16 @@ class RemoGuestbookBlockController extends BlockController {
    
    public function action_reply() {
       $db = Loader::db();
-      $values = array($_POST['message'], $_POST['email'], $this->bID, $_POST['parentEntryID']);
-      if ($db->Execute('INSERT INTO btRemoGuestbookEntries (message, emailAddress, dateCreated, bID, parentEntryID) VALUES (?,?,now(),?,?)', $values)) {
+      
+      $u = new User();
+      if ($u->isLoggedIn()) {
+         $ui = UserInfo::getByID($u->getUserID());
+         $_POST['email'] = $ui->getUserEmail();
+         $_POST['name']  = $u->getUserName();
+      }
+      
+      $values = array($_POST['message'], $_POST['name'], $_POST['email'], $this->bID, $_POST['parentEntryID']);
+      if ($db->Execute('INSERT INTO btRemoGuestbookEntries (message, name, emailAddress, dateCreated, bID, parentEntryID) VALUES (?,?,?,now(),?,?)', $values)) {
          $this->set('message', t('message posted.'));
       }
       else {
